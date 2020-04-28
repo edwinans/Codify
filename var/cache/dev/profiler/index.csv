@@ -46,3 +46,5 @@ de08b6,127.0.0.1,GET,http://localhost:8000/blog/10,1588098869,,200
 1568f5,127.0.0.1,GET,http://localhost:8000/blog/4,1588098879,,200
 c01420,127.0.0.1,GET,http://localhost:8000/blog,1588098880,,200
 2faa96,127.0.0.1,GET,http://localhost:8000/,1588098881,,200
+1eccce,127.0.0.1,GET,http://localhost:8000/,1588099312,,200
+6ee6ef,127.0.0.1,GET,http://localhost:8000/blog,1588099314,,200
