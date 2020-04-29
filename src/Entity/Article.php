@@ -39,7 +39,7 @@ class Article
 
     /**
      * @ORM\Column(type="datetime")
-     *  * @Assert\Url()
+     *  * @Assert\Type("\DateTimeInterface")
      */
     private $createdAt;
 

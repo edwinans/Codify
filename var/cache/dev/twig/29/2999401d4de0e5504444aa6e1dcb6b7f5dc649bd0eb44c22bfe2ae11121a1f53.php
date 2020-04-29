@@ -97,8 +97,8 @@ class __TwigTemplate_0cafac7af6ad195e64e20d03124a82135831190eddff64a4ea6f7b2f3a9
         echo "
 \t";
         // line 20
-        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["formArticle"]) || array_key_exists("formArticle", $context) ? $context["formArticle"] : (function () { throw new RuntimeError('Variable "formArticle" does not exist.', 20, $this->source); })()), "category", [], "any", false, false, false, 20), 'row');
-        echo "
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["formArticle"]) || array_key_exists("formArticle", $context) ? $context["formArticle"] : (function () { throw new RuntimeError('Variable "formArticle" does not exist.', 20, $this->source); })()), "category", [], "any", false, false, false, 20), 'row', ["attr" => ["placeholder" => ""]]);
+        echo " 
 \t";
         // line 21
         echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["formArticle"]) || array_key_exists("formArticle", $context) ? $context["formArticle"] : (function () { throw new RuntimeError('Variable "formArticle" does not exist.', 21, $this->source); })()), "content", [], "any", false, false, false, 21), 'row', ["attr" => ["placeholder" => "Contenu de l'article"]]);
@@ -175,7 +175,7 @@ class __TwigTemplate_0cafac7af6ad195e64e20d03124a82135831190eddff64a4ea6f7b2f3a9
 \t{{ form_start( formArticle )}}
 
 \t{{ form_row(formArticle.title, {'attr': {'placeholder': \"Titre de l'article\"}})   }}
-\t{{ form_row(formArticle.category)  }}
+\t{{ form_row(formArticle.category, {'attr': {'placeholder': \"\"}})   }} 
 \t{{ form_row(formArticle.content, {'attr': {'placeholder': \"Contenu de l'article\"}})   }}
 \t{{ form_row(formArticle.image, {'attr': {'placeholder': \"Image de l'article\"}})   }}
 
