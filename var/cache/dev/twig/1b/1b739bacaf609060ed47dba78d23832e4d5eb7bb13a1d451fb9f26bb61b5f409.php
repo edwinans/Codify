@@ -105,7 +105,10 @@ class __TwigTemplate_c54f733e8e8e568278dc3883c68b1503dd1428b93b0408f0b56a835fe85
             // line 14
             echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "createdAt", [], "any", false, false, false, 14), "d/m/y"), "html", null, true);
             echo "
-\t\t\t\t\tdans la catégorie Politique
+\t\t\t\t\tdans la catégorie ";
+            // line 15
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["article"], "category", [], "any", false, false, false, 15), "title", [], "any", false, false, false, 15), "html", null, true);
+            echo "
 \t\t\t\t</div>
 \t\t\t\t<div class=\"content\">
 \t\t\t\t\t<img src=\"";
@@ -151,7 +154,7 @@ class __TwigTemplate_c54f733e8e8e568278dc3883c68b1503dd1428b93b0408f0b56a835fe85
 
     public function getDebugInfo()
     {
-        return array (  132 => 25,  121 => 20,  117 => 19,  113 => 18,  106 => 14,  100 => 11,  97 => 10,  93 => 9,  89 => 7,  79 => 6,  59 => 3,  36 => 1,);
+        return array (  135 => 25,  124 => 20,  120 => 19,  116 => 18,  110 => 15,  106 => 14,  100 => 11,  97 => 10,  93 => 9,  89 => 7,  79 => 6,  59 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -170,7 +173,7 @@ class __TwigTemplate_c54f733e8e8e568278dc3883c68b1503dd1428b93b0408f0b56a835fe85
 \t\t\t\t<div class=\"metadata\">
 \t\t\t\t\tEcrit le
 \t\t\t\t\t{{ article.createdAt | date('d/m/y') }}
-\t\t\t\t\tdans la catégorie Politique
+\t\t\t\t\tdans la catégorie {{article.category.title}}
 \t\t\t\t</div>
 \t\t\t\t<div class=\"content\">
 \t\t\t\t\t<img src=\"{{article.image }}\" alt=\"\">

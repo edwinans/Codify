@@ -5,13 +5,15 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Article;
+use App\Entity\Category;
 use App\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class BlogController extends AbstractController
 {
@@ -35,7 +37,7 @@ class BlogController extends AbstractController
      */
     public function home(){
         return $this->render('blog/home.html.twig',[
-            'title'=> "Bienvenue ic les amis",
+            'title'=> "Bienvenue ici les amis",
             'age'=> 31,
         ]);
     }
@@ -48,35 +50,37 @@ class BlogController extends AbstractController
         if(!$article){
             $article=new Article();
         }
-
-        #$article->setTitle("Titre prérempli")
-                #->setContent("Contenu prérempli");
+       
 
         $form=$this->createFormBuilder($article)
                    ->add('title')
+                   ->add('category',EntityType::class,[
+                       'class'=>Category::class,
+                       'choice_label'=> 'title'
+                   ])
                    ->add('content')
                    ->add('image')
                    ->getForm();
                    
         $form->handleRequest($request); //est ce que tout va bien ? champs rempli ? 
-        // il bind
+        // il bind l'attribut avec l'attribut de l'article
+
         if($form -> isSubmitted() && $form->isValid()){
             if(!$article->getId()){
                  $article->setCreatedAt(new \DateTime());
             }
-            
 
             $manager->persist($article);
             $manager->flush();
 
-            return $this->redirectToRoute('blog_show',['id'=>$article->getId()]);
+            return $this->redirectToRoute('blog_show',[
+                'id'=>$article->getId()
+            ]);
         }
-
         return $this->render('blog/create.html.twig',[
             'formArticle'=> $form->createView(),
             'editMode'=> $article->getId()!==null
         ]);
-
     }
 
      /**

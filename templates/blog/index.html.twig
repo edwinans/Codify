@@ -12,7 +12,7 @@
 				<div class="metadata">
 					Ecrit le
 					{{ article.createdAt | date('d/m/y') }}
-					dans la catégorie Politique
+					dans la catégorie {{article.category.title}}
 				</div>
 				<div class="content">
 					<img src="{{article.image }}" alt="">
