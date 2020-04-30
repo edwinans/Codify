@@ -563,3 +563,16 @@ ee48f8,127.0.0.1,GET,http://localhost:8000/connexion,1588209479,209b5f,404
 71cdd1,127.0.0.1,GET,http://localhost:8000/inscription,1588209694,,200
 f9b73f,127.0.0.1,POST,http://localhost:8000/inscription,1588209713,,302
 125cf2,127.0.0.1,GET,http://localhost:8000/connexion,1588209713,,200
+8f4d8a,127.0.0.1,GET,http://localhost:8000/connexion,1588210298,,200
+9b0296,127.0.0.1,POST,http://localhost:8000/connexion,1588210336,,302
+d44355,127.0.0.1,GET,http://localhost:8000/connexion,1588210336,,200
+71fccb,127.0.0.1,GET,http://localhost:8000/inscription,1588210354,,200
+de6b1a,127.0.0.1,POST,http://localhost:8000/inscription,1588210389,,302
+b20280,127.0.0.1,GET,http://localhost:8000/connexion,1588210389,,200
+403d22,127.0.0.1,POST,http://localhost:8000/connexion,1588210414,,302
+0a606d,127.0.0.1,GET,http://localhost:8000/connexion,1588210414,,200
+ae2148,127.0.0.1,GET,http://localhost:8000/inscription,1588210433,,200
+c1af0d,127.0.0.1,POST,http://localhost:8000/inscription,1588210461,,302
+5ecfdf,127.0.0.1,GET,http://localhost:8000/connexion,1588210461,,200
+324ea2,127.0.0.1,POST,http://localhost:8000/connexion,1588210480,,302
+e49fd7,127.0.0.1,GET,http://localhost:8000/,1588210480,,200

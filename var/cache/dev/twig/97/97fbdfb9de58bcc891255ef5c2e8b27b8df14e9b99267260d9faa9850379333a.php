@@ -66,6 +66,23 @@ class __TwigTemplate_692022b8c818efae4aec109d95f4c8e3117510b10c30cb53deaf3f1c5dd
 
         // line 4
         echo "    <h1> Connexion ! </h1>
+    <form action=\"";
+        // line 5
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("security_login");
+        echo "\" method=\"post\">
+        <div class=\"form-group\">
+            <input placeholder=\"Adresse email ... \" required name=\"_username\"
+            type=\"text\" class=\"form-control\">
+        </div>
+        <div class=\"form-group\">
+            <input placeholder=\"Mot de passe ... \" required name=\"_password\"
+            type=\"password\" class=\"form-control\">
+        </div>
+
+        <div class=\"form-group\">
+            <button type=\"submit\" class=\"btn btn-success\"> Connexion </button>
+        </div>
+    </form>
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -87,7 +104,7 @@ class __TwigTemplate_692022b8c818efae4aec109d95f4c8e3117510b10c30cb53deaf3f1c5dd
 
     public function getDebugInfo()
     {
-        return array (  68 => 4,  58 => 3,  35 => 1,);
+        return array (  71 => 5,  68 => 4,  58 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -96,6 +113,20 @@ class __TwigTemplate_692022b8c818efae4aec109d95f4c8e3117510b10c30cb53deaf3f1c5dd
 
 {% block body %}
     <h1> Connexion ! </h1>
+    <form action=\"{{ path('security_login')}}\" method=\"post\">
+        <div class=\"form-group\">
+            <input placeholder=\"Adresse email ... \" required name=\"_username\"
+            type=\"text\" class=\"form-control\">
+        </div>
+        <div class=\"form-group\">
+            <input placeholder=\"Mot de passe ... \" required name=\"_password\"
+            type=\"password\" class=\"form-control\">
+        </div>
+
+        <div class=\"form-group\">
+            <button type=\"submit\" class=\"btn btn-success\"> Connexion </button>
+        </div>
+    </form>
 {% endblock %}", "security/login.html.twig", "/home/yaniv/cours/web/projet/Codify/templates/security/login.html.twig");
     }
 }
