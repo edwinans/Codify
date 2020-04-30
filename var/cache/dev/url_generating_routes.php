@@ -20,4 +20,6 @@ return [
     'blog_create' => [[], ['_controller' => 'App\\Controller\\BlogController::form'], [], [['text', '/blog/new']], [], []],
     'blog_edit' => [['id'], ['_controller' => 'App\\Controller\\BlogController::form'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id', true], ['text', '/blog']], [], []],
     'blog_show' => [['id'], ['_controller' => 'App\\Controller\\BlogController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/blog']], [], []],
+    'security_registration' => [[], ['_controller' => 'App\\Controller\\SecurityController::registration'], [], [['text', '/inscription']], [], []],
+    'security_login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/connexion']], [], []],
 ];

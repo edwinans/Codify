@@ -6,7 +6,7 @@
 use Symfony\Component\DependencyInjection\Dumper\Preloader;
 
 require dirname(__DIR__, 3).'/vendor/autoload.php';
-require __DIR__.'/ContainerVDnS9kO/App_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerBxiwaio/App_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -28,9 +28,12 @@ $classes[] = 'Symfony\Bridge\Monolog\Logger';
 $classes[] = 'Symfony\Component\HttpFoundation\RequestMatcher';
 $classes[] = 'Symfony\Component\DependencyInjection\ServiceLocator';
 $classes[] = 'App\Controller\BlogController';
+$classes[] = 'App\Controller\SecurityController';
+$classes[] = 'App\Form\RegistrationType';
 $classes[] = 'App\Repository\ArticleRepository';
 $classes[] = 'App\Repository\CategoryRepository';
 $classes[] = 'App\Repository\CommentRepository';
+$classes[] = 'App\Repository\UserRepository';
 $classes[] = 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController';
 $classes[] = 'Symfony\Bundle\FrameworkBundle\Controller\TemplateController';
 $classes[] = 'Symfony\Component\Cache\DoctrineProvider';
@@ -327,7 +330,6 @@ $classes[] = 'Symfony\Component\Security\Core\Encoder\EncoderFactory';
 $classes[] = 'Symfony\Bundle\SecurityBundle\Security\FirewallMap';
 $classes[] = 'Symfony\Bundle\SecurityBundle\Security\FirewallContext';
 $classes[] = 'Symfony\Bundle\SecurityBundle\Security\FirewallConfig';
-$classes[] = 'Symfony\Bundle\SecurityBundle\Security\LazyFirewallContext';
 $classes[] = 'Symfony\Component\Security\Http\Firewall\ExceptionListener';
 $classes[] = 'Symfony\Component\Security\Http\HttpUtils';
 $classes[] = 'Symfony\Component\Security\Http\Logout\LogoutUrlGenerator';
