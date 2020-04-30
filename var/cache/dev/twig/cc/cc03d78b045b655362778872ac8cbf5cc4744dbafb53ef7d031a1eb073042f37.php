@@ -136,7 +136,7 @@ class __TwigTemplate_b8c55721a463f0f635caa5d9d5c3c0f8228e32d7bda5daa5b0a5bf570a7
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
         // line 7
-        echo "\t\t\t\tWelcome !
+        echo "\t\t\t\tCodify
 \t\t\t";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -223,7 +223,7 @@ class __TwigTemplate_b8c55721a463f0f635caa5d9d5c3c0f8228e32d7bda5daa5b0a5bf570a7
 \t\t<meta charset=\"UTF-8\">
 \t\t<title>
 \t\t\t{% block title %}
-\t\t\t\tWelcome !
+\t\t\t\tCodify
 \t\t\t{% endblock %}
 \t\t</title>
 \t\t<link rel=\"stylesheet\" href=\"https://bootswatch.com/4/flatly/bootstrap.min.css\"> {% block stylesheets %}{% endblock %}

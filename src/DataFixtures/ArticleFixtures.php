@@ -9,16 +9,16 @@ use App\Entity\Category;
 use App\Entity\Comment;
 
 
-
 class ArticleFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
         $faker= \Faker\Factory::create('fr_FR');
-        //Créer 3 Catégories fake
-        for($i=1;$i<=3;$i++){
+        $cat=["Java","PHP","Javascript","C","Ocaml","Python"];
+        //Créer 5 Catégories 
+        for($i=0;$i<=5;$i++){
             $category=new Category();
-            $category->setTitle($faker->sentence())
+            $category->setTitle($cat[$i])
                      ->setDescription($faker->paragraph());
 
             $manager->persist($category);
