@@ -4,6 +4,8 @@ security:
                 algorithm: bcrypt
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+
+    #comment les users sont récupérés 
     providers:
         in_memory: { memory: ~ }
         in_database:
