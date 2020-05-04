@@ -54,7 +54,7 @@ class User implements UserInterface
     public $roles;
 
     public function __construct(){
-        $this->roles=array('ROLE_ADMIN');
+        $this->roles=array('ROLE_USER');
     }
 
 

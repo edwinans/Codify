@@ -82,6 +82,10 @@ class __TwigTemplate_692022b8c818efae4aec109d95f4c8e3117510b10c30cb53deaf3f1c5dd
         <div class=\"form-group\">
             <button type=\"submit\" class=\"btn btn-success\"> Connexion </button>
         </div>
+        <a href=\"";
+        // line 18
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("security_registration");
+        echo "\" > Pas encore de compte ? Inscrivez- vous ici </a> 
     </form>
 ";
         
@@ -104,7 +108,7 @@ class __TwigTemplate_692022b8c818efae4aec109d95f4c8e3117510b10c30cb53deaf3f1c5dd
 
     public function getDebugInfo()
     {
-        return array (  71 => 5,  68 => 4,  58 => 3,  35 => 1,);
+        return array (  87 => 18,  71 => 5,  68 => 4,  58 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -126,6 +130,7 @@ class __TwigTemplate_692022b8c818efae4aec109d95f4c8e3117510b10c30cb53deaf3f1c5dd
         <div class=\"form-group\">
             <button type=\"submit\" class=\"btn btn-success\"> Connexion </button>
         </div>
+        <a href=\"{{ path('security_registration')}}\" > Pas encore de compte ? Inscrivez- vous ici </a> 
     </form>
 {% endblock %}", "security/login.html.twig", "/home/yaniv/cours/web/Codify/templates/security/login.html.twig");
     }
