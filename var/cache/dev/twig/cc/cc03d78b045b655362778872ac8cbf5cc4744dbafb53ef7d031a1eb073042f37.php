@@ -260,6 +260,6 @@ class __TwigTemplate_b8c55721a463f0f635caa5d9d5c3c0f8228e32d7bda5daa5b0a5bf570a7
 \t\t\t\t{% block javascripts %}{% endblock %}
 \t\t\t</body>
 \t\t</html>
-", "base.html.twig", "/home/yaniv/cours/web/projet/Codify/templates/base.html.twig");
+", "base.html.twig", "/home/yaniv/cours/web/Codify/templates/base.html.twig");
     }
 }

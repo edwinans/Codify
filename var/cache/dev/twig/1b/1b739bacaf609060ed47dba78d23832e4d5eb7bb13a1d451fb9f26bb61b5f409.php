@@ -185,6 +185,6 @@ class __TwigTemplate_c54f733e8e8e568278dc3883c68b1503dd1428b93b0408f0b56a835fe85
 \t\t{% endfor %}
 \t</section>
 {% endblock %}
-", "blog/index.html.twig", "/home/yaniv/cours/web/projet/Codify/templates/blog/index.html.twig");
+", "blog/index.html.twig", "/home/yaniv/cours/web/Codify/templates/blog/index.html.twig");
     }
 }

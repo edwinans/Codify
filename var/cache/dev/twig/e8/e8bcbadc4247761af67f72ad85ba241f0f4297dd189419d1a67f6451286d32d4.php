@@ -471,6 +471,6 @@ class __TwigTemplate_93eaf8e5c35cc57322607d8ac5762c4a4be25cd1d0a39dcc855b6554bc3
         </div>
     {% endif %}
 {% endblock %}
-", "@WebProfiler/Collector/twig.html.twig", "/home/yaniv/cours/web/projet/Codify/Codify/vendor/symfony/web-profiler-bundle/Resources/views/Collector/twig.html.twig");
+", "@WebProfiler/Collector/twig.html.twig", "/home/yaniv/cours/web/Codify/vendor/symfony/web-profiler-bundle/Resources/views/Collector/twig.html.twig");
     }
 }

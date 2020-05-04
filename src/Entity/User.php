@@ -9,10 +9,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(
- *  fields={"email"},
- *  message="Email deja utilisée"
- * )
+ * @UniqueEntity(fields="email", message="Email deja utilisé")
+ * @UniqueEntity(fields="username", message="Pseudo deja utilisé")
  */
 class User implements UserInterface
 {
@@ -50,7 +48,14 @@ class User implements UserInterface
     */
     public $confirm_password;
 
+    /** 
+    * @ORM\Column(type="array")
+    */
+    public $roles;
 
+    public function __construct(){
+        $this->roles=array('ROLE_ADMIN');
+    }
 
 
     public function getId(): ?int
@@ -97,6 +102,6 @@ class User implements UserInterface
     public function eraseCredentials(){}
     public function getSalt(){}
     public function getRoles(){
-        return ['ROLE_USER'];
+        return $this->roles ;
     }
 }

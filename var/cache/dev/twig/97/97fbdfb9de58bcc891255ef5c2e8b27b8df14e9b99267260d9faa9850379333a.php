@@ -127,6 +127,6 @@ class __TwigTemplate_692022b8c818efae4aec109d95f4c8e3117510b10c30cb53deaf3f1c5dd
             <button type=\"submit\" class=\"btn btn-success\"> Connexion </button>
         </div>
     </form>
-{% endblock %}", "security/login.html.twig", "/home/yaniv/cours/web/projet/Codify/templates/security/login.html.twig");
+{% endblock %}", "security/login.html.twig", "/home/yaniv/cours/web/Codify/templates/security/login.html.twig");
     }
 }

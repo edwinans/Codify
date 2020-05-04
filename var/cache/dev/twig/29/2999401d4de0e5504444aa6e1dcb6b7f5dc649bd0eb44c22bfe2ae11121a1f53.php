@@ -192,6 +192,6 @@ class __TwigTemplate_0cafac7af6ad195e64e20d03124a82135831190eddff64a4ea6f7b2f3a9
 
 
 {% endblock %}
-", "blog/create.html.twig", "/home/yaniv/cours/web/projet/Codify/templates/blog/create.html.twig");
+", "blog/create.html.twig", "/home/yaniv/cours/web/Codify/templates/blog/create.html.twig");
     }
 }

@@ -227,6 +227,6 @@ class __TwigTemplate_e327eac469dabad8ec1b381ee9bdaaf04b0d92abe2929215ee2e033717b
         </div>
     {% endif %}
 {% endblock %}
-", "@WebProfiler/Collector/exception.html.twig", "/home/yaniv/cours/web/projet/Codify/Codify/vendor/symfony/web-profiler-bundle/Resources/views/Collector/exception.html.twig");
+", "@WebProfiler/Collector/exception.html.twig", "/home/yaniv/cours/web/Codify/vendor/symfony/web-profiler-bundle/Resources/views/Collector/exception.html.twig");
     }
 }

@@ -102,6 +102,6 @@ class __TwigTemplate_5d57808e1626780b0ae6e462a53e7976f984a1ecbf88c9bbfacb12d7347
 
 <p> Salut ca va ? je m'appelle Benichou yaniv </p>
 {% endblock  %}
-", "blog/home.html.twig", "/home/yaniv/cours/web/projet/Codify/templates/blog/home.html.twig");
+", "blog/home.html.twig", "/home/yaniv/cours/web/Codify/templates/blog/home.html.twig");
     }
 }

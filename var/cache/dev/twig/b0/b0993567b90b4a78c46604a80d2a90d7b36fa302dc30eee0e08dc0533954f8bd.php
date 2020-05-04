@@ -136,6 +136,6 @@ class __TwigTemplate_cc406ee23178c5042d2b76c49ab9b1d2801819c63594bbff3561e5c56a6
     {{ form_end(form)}}
 
 
-{% endblock %}", "security/registration.html.twig", "/home/yaniv/cours/web/projet/Codify/templates/security/registration.html.twig");
+{% endblock %}", "security/registration.html.twig", "/home/yaniv/cours/web/Codify/templates/security/registration.html.twig");
     }
 }

@@ -193,6 +193,6 @@ class __TwigTemplate_aa0cbfa034d88eed7a462b25d8d4b1a4667fb2443c1308f110d23172021
         {% block body '' %}
     </body>
 </html>
-", "@WebProfiler/Profiler/base.html.twig", "/home/yaniv/cours/web/projet/Codify/Codify/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/base.html.twig");
+", "@WebProfiler/Profiler/base.html.twig", "/home/yaniv/cours/web/Codify/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/base.html.twig");
     }
 }
