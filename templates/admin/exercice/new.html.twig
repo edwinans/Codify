@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h2> Créer un nouvel exercice </h2>
+       {{ include ('admin/exercice/_form.html.twig',{form:form,button:'Créer'})}}
+    </div>
+{% endblock %}

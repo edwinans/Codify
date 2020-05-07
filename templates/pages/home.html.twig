@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="jumbotron text-center">
+		<div class="container">
+			<h1>
+				Bienvenue sur la HomePage
+			</h1>
+			<p>
+				Bienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le site  Bienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le siteBienvenue sur le site
+			</p>
+		</div>
+	</div>
+	<div class="container">
+		<h2>
+			Les derniers Exercices
+		</h2>
+		<div class="row flex">
+			{% for exercice in exercices %}
+				<div class="col -3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">
+								<a href="{{ path('exercice.show', {'id':exercice.id , slug:exercice.slug})}}">
+									{{ exercice.title }}
+								</a>
+								<img src="https://pngimage.net/wp-content/uploads/2018/06/rating-star-png-7.png" alt="difficulte" width="30" height="30"/>
+							</h5>
+							<p class="card-text">
+								{{exercice.description}}
+							</p>
+							<div class="text-primary">
+								{{ exercice.difficulte}}
+								<img src="https://pngimage.net/wp-content/uploads/2018/06/rating-star-png-7.png" alt="difficulte" width="30" height="30"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
+
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+<div class="card mb-4">
+	<div class="card-body">
+		<h5 class="card-title">
+			<a href="{{ path('exercice.show', {'id':exercice.id , slug:exercice.slug})}}">
+				{{ exercice.title }}
+			</a>
+			<img src="https://pngimage.net/wp-content/uploads/2018/06/rating-star-png-7.png" alt="difficulte" width="30" height="30"/>
+		</h5>
+		<p class="card-text">
+			{{exercice.description}}
+		</p>
+		<div class="text-primary">
+			{{ exercice.difficulte}}
+			<img src="https://pngimage.net/wp-content/uploads/2018/06/rating-star-png-7.png" alt="difficulte" width="30" height="30"/>
+		</div>
+	</div>
+</div>
