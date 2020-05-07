@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use Doctrine\ORM\Query;
 use App\Entity\Exercice;
+use App\Entity\ExerciceFiltre;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -64,9 +65,20 @@ class ExerciceRepository extends ServiceEntityRepository
     /**
      * @return Query
      */
-    public function findAllQuery():Query{
-        return $this->findVisibleQuery()
-                ->getQuery();
+    public function findAllQuery(ExerciceFiltre $search):Query{
+
+        $query= $this->findVisibleQuery();
+        if($search->getMaxDifficulte()){
+            $query=$query
+                    ->andwhere('e.difficulte <= :maxDifficulte')
+                    ->setParameter('maxDifficulte',$search->getMaxDifficulte());
+        }
+        if($search->getMinDifficulte()){
+            $query=$query
+                    ->andwhere('e.difficulte >= :minDifficulte')
+                    ->setParameter('minDifficulte',$search->getMinDifficulte());
+        }
+        return $query->getQuery();
     }
 
     /**
