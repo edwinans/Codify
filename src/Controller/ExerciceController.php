@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Exercice;
+use App\Form\CommentType;
 use App\Entity\ExerciceFiltre;
 use App\Form\ExerciceFiltreType;
 use App\Repository\ExerciceRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,11 +64,29 @@ class ExerciceController extends AbstractController{
      * @Route("/exercices/{slug}-{id}",name="exercice.show",requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function show($slug,$id):Response{
+    public function show($slug,$id,Request $request,EntityManagerInterface $manager):Response{
+        $comment=new Comment();
+        $form =$this->createForm(CommentType::class,$comment);
+        $form->handleRequest($request);
+        $repository = $this->getDoctrine()->getRepository(Exercice::class);
+        $exercice = $repository->find($id);
+        if($form->isSubmitted() && $form->isValid()){
+            $comment->setCreatedAt(new \DateTime())
+                    ->setExercice($exercice);
+                    
+
+            $manager->persist($comment);
+            $manager->flush();
+            return $this->redirectToRoute('exercice.show',[
+                'id'=>$id,
+                'slug'=>'exercices'
+            ]);
+        }
         $exercice=$this->repository->find($id);
         return $this->render('exercice/show.html.twig',[
             'exercice'=> $exercice,
-            'current_menu'=> 'exercices'
+            'current_menu'=> 'exercices',
+            'commentForm'=>$form->createView()
         ]);
     }   
 }
