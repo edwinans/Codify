@@ -10,7 +10,8 @@ class ExerciceFiltre{
      * @var int|null
      * @Assert\Range(min=0,max=5)
      */
-    private $maxDifficulte;
+    private $maxDifficulte; 
+    //to DO remplacer maxDifficulte par catégory
 
 
     /**
