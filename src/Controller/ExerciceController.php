@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Security;
 
 class ExerciceController extends AbstractController{
 
@@ -29,9 +30,15 @@ class ExerciceController extends AbstractController{
      */
     private $manager;
 
-    public function __construct(ExerciceRepository $repository,EntityManagerInterface $manager){
+    /**
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(ExerciceRepository $repository,EntityManagerInterface $manager,Security $security){
         $this->repository = $repository ;
         $this->manager = $manager ;
+        $this->security =$security;
     }
 
 
@@ -73,7 +80,8 @@ class ExerciceController extends AbstractController{
     
         if($form->isSubmitted() && $form->isValid()){
             $comment->setCreatedAt(new \DateTime())
-                    ->setExercice($exercice);
+                    ->setExercice($exercice)
+                    ->setAuthor($this->security->getUser()->getUsername());
                     
 
             $manager->persist($comment);
