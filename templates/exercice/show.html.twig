@@ -48,26 +48,49 @@
 				</div>
 			</div>
 		{% endfor %}
-		{% if app.user %}
+
+
+		<div class="container">
+			{% if app.user %}
 			{{form_start(commentForm)}}
-			{{form_row(commentForm.author,{'attr': {
-			'placeholder':  app.user.username
+			<div class="form-row align-items-end">
+				<div class="col">
+					{{form_row(commentForm.author,{'attr': {
+			'value':  app.user.username,
 		}})}}
-			{{form_row(commentForm.content,{'attr': {
+				</div>
+				<div class="col">
+					{{form_row(commentForm.content,{'attr': {
 			'placeholder': " Votre commentaire"
 		}})}}
-			<button type="submit" class="btn btn-success">
+				</div>
+				<div class="col">
+					<div class="form-group">
+						<button type="submit" class="btn btn-success">
 				Commenter
 			</button>
+					</div>
+				</div>
+			</div>
 			{{form_end(commentForm)}}
-		{% else %}
-			<h3>
+			{% else %}
+				<h3>
 				Vous ne pouvez pas commenter si vous n'etes pas connecté !
 			</h3>
 			<a href="{{path('login')}}" class="btn btn-primary">
 				Connexion
 			</a>
 		{% endif %}
+
+		</div>
+
+
+
+
+
+
+
+
 	</section>
 
 {% endblock %}

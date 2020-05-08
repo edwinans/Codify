@@ -6,13 +6,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 class ExerciceFiltre{
-    /**
-     * @var int|null
-     * @Assert\Range(min=0,max=5)
+    
+   /**
+     * @var Category
      */
-    private $maxDifficulte; 
-    //to DO remplacer maxDifficulte par catégory
-
+    private $category;
 
     /**
      * @var int|null
@@ -21,19 +19,19 @@ class ExerciceFiltre{
     private $minDifficulte;
 
 
+    
 
-    /**
-     * @return int|null
-     */
-    public function getMaxDifficulte(){
-        return $this->maxDifficulte;
+    
+    public function getCategory(): ?Category
+    {
+        return $this->category;
     }
 
     /**
      * @return ExerciceFiltre
      */
-    public function setMaxDifficulte(int $difficulte){
-       $this->maxDifficulte =$difficulte;
+    public function setCategory(?Category $category){
+       $this->category =$category;
        return $this;
     }
 

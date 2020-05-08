@@ -68,10 +68,10 @@ class ExerciceRepository extends ServiceEntityRepository
     public function findAllQuery(ExerciceFiltre $search):Query{
 
         $query= $this->findVisibleQuery();
-        if($search->getMaxDifficulte()){
+        if($search->getCategory()){
             $query=$query
-                    ->andwhere('e.difficulte <= :maxDifficulte')
-                    ->setParameter('maxDifficulte',$search->getMaxDifficulte());
+                    ->andwhere('e.category = :category')
+                    ->setParameter('category',$search->getCategory());
         }
         if($search->getMinDifficulte()){
             $query=$query

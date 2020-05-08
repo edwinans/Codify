@@ -70,6 +70,7 @@ class ExerciceController extends AbstractController{
         $form->handleRequest($request);
         $repository = $this->getDoctrine()->getRepository(Exercice::class);
         $exercice = $repository->find($id);
+    
         if($form->isSubmitted() && $form->isValid()){
             $comment->setCreatedAt(new \DateTime())
                     ->setExercice($exercice);
