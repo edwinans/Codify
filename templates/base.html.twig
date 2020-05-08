@@ -22,7 +22,15 @@
 								Exercices
 							</a>
 						</li>
-
+						{% if app.user and app.user.getRoles()==['ROLE_ADMIN'] %}
+						<li class="nav-item ">
+							<a class="nav-link {% if current_menu is defined and current_menu == 'admin' %} active{% endif %}" href="{{path('admin.exercice.index')}}">
+								Admin
+							</a>
+						</li>
+						{% endif %}
+						
+						
 					</ul>
 
 

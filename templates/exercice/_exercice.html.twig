@@ -4,7 +4,7 @@
 			<a href="{{ path('exercice.show', {'id':exercice.id , slug:exercice.slug})}}">
 				{{ exercice.title }}
 			</a>
-			<img src="https://pngimage.net/wp-content/uploads/2018/06/rating-star-png-7.png" alt="difficulte" width="30" height="30"/>
+			<small>{{exercice.category.title}} </small>
 		</h5>
 		<p class="card-text">
 			{{exercice.description}}

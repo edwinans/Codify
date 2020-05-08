@@ -27,7 +27,10 @@ class AdminExerciceController extends AbstractController{
      */
     public function index():Response{
         $exercices=$this->repository->findAll();
-        return $this->render('admin/exercice/index.html.twig',compact('exercices'));
+        return $this->render('admin/exercice/index.html.twig',[
+            'exercices'=>$exercices,
+            'current_menu'=>'admin'
+        ]);
     }
 
 
