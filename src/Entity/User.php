@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields="email", message="Email deja utilisé")
+ * @UniqueEntity(fields="username", message="Pseudo deja utilisé")
  */
 class User implements UserInterface
 {
@@ -24,8 +27,20 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="8",minMessage="Votre mot de passe doit fire minimum 8 characteres")
+     * @Assert\EqualTo(propertyPath="confirm_password",message="Mots de passe differents")
      */
     private $password;
+
+    /** 
+     * @Assert\EqualTo(propertyPath="password",message="Mots de passe differents")
+     */
+    private $confirm_password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
 
     public function getId(): ?int
     {
@@ -55,6 +70,18 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getConfirmPassword(): ?string
+    {
+        return $this->confirm_password;
+    }
+
+    public function setConfirmPassword(string $confirm_password): self
+    {
+        $this->confirm_password = $confirm_password;
+
+        return $this;
+    }
     public function getRoles(){
         return ['ROLE_ADMIN'];
     }
@@ -81,5 +108,17 @@ class User implements UserInterface
             $this->username,
             $this->password
         )= unserialize($serialized);
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
     }
 }
