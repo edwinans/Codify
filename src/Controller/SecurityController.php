@@ -12,14 +12,24 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
+
+
 class SecurityController extends AbstractController
 {
+
 
     /**
      * @Route("/inscription", name="security_registration")
      */
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
+        //check if user is already logged in 
+        $tokenInterface = $this->get('security.token_storage')->getToken();
+        if($tokenInterface->isAuthenticated()){
+            $this->addFlash('redirect','Vous êtes déja connecté');
+            return $this->redirectToRoute('home');
+        }
+
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
         //les champs sont bindés
