@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints\Email;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields="email", message="Email deja utilisé")
@@ -41,6 +42,18 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $email;
+
+    /**
+     * @var array
+     * 
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    public function __construct()
+    {
+        $this->roles[]='ROLE_ETUDIANT';
+    }
 
     public function getId(): ?int
     {
@@ -82,10 +95,7 @@ class User implements UserInterface
 
         return $this;
     }
-    public function getRoles(){
-        return ['ROLE_ADMIN'];
-    }
-    
+
     public function getSalt(){
         return null;
     }
@@ -118,6 +128,25 @@ class User implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return array(Role|string)[] the user roles
+     */
+    public function getRoles():array{
+        $tmp_roles=$this->roles;
+        if(in_array('ROLE_ETUDIANT',$tmp_roles)=== false){
+            $tmp_roles[]='ROLE_ETUDIANT';
+        }
+        return $tmp_roles;
+    
+    }
+    
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }

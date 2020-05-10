@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Enseignant;
 
 use App\Entity\Exercice;
 use App\Form\ExerciceType;
@@ -12,30 +12,31 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-class AdminExerciceController extends AbstractController{
+class EnseignantExerciceController extends AbstractController{
     /**
      * @var ExerciceRepository
      */
     private $repository;
+    
     public function __construct(ExerciceRepository $repository,EntityManagerInterface $manager){
         $this->manager=$manager;
         $this->repository=$repository;
     }
 
     /**
-     * @Route("/admin",name="admin.exercice.index")
+     * @Route("/enseignant",name="enseignant.exercice.index")
      */
     public function index():Response{
         $exercices=$this->repository->findAll();
-        return $this->render('admin/exercice/index.html.twig',[
+        return $this->render('enseignant/exercice/index.html.twig',[
             'exercices'=>$exercices,
-            'current_menu'=>'admin'
+            'current_menu'=>'enseignant'
         ]);
     }
 
 
     /**
-     * @Route("/admin/exercice/create",name="admin.exercice.new")
+     * @Route("/enseignant/exercice/create",name="enseignant.exercice.new")
      */
     public function new(Request $request){
         $exercice=new Exercice();
@@ -46,16 +47,16 @@ class AdminExerciceController extends AbstractController{
             $this->manager->persist($exercice);
             $this->manager->flush();
             $this->addFlash('success','Bien créé avec succés');
-            return $this->redirectToRoute('admin.exercice.index'); //listing des exos
+            return $this->redirectToRoute('enseignant.exercice.index'); //listing des exos
         }
-        return $this->render('admin/exercice/new.html.twig',[
+        return $this->render('enseignant/exercice/new.html.twig',[
             'exercice'=>$exercice,
             'form'=>$form->createView()
         ]);
     }
 
     /**
-     * @Route("/admin/exercice/{id}",name="admin.exercice.edit",methods="GET|POST")
+     * @Route("/enseignant/exercice/{id}",name="enseignant.exercice.edit",methods="GET|POST")
      */
     public function edit(Exercice $exercice, Request $request){
 
@@ -65,17 +66,17 @@ class AdminExerciceController extends AbstractController{
         if($form->isSubmitted() && $form->isValid()){
             $this->manager->flush();
             $this->addFlash('success','Bien modifié avec succés');
-            return $this->redirectToRoute('admin.exercice.index'); //listing des exos
+            return $this->redirectToRoute('enseignant.exercice.index'); //listing des exos
         }
 
-        return $this->render('admin/exercice/edit.html.twig',[
+        return $this->render('enseignant/exercice/edit.html.twig',[
             'exercice'=>$exercice,
             'form'=>$form->createView()
         ]);
     }
 
     /**
-     * @Route("/admin/exercice/{id}",name="admin.exercice.delete",methods="DELETE")
+     * @Route("/enseignant/exercice/{id}",name="enseignant.exercice.delete",methods="DELETE")
      */
     public function delete(Exercice $exercice,Request $request){
         if($this->isCsrfTokenValid('delete'. $exercice->getId(),$request->get('_token'))){
@@ -84,7 +85,7 @@ class AdminExerciceController extends AbstractController{
             $this->addFlash('success','Bien supprimé avec succés');
         }
        
-        return $this->redirectToRoute('admin.exercice.index'); //listing des exos
+        return $this->redirectToRoute('enseignant.exercice.index'); //listing des exos
     }
 }
     

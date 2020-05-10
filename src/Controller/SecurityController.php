@@ -24,11 +24,11 @@ class SecurityController extends AbstractController
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         //check if user is already logged in 
-        $tokenInterface = $this->get('security.token_storage')->getToken();
-        if($tokenInterface->isAuthenticated()){
-            $this->addFlash('redirect','Vous êtes déja connecté');
-            return $this->redirectToRoute('home');
-        }
+        //$tokenInterface = $this->get('security.token_storage')->getToken();
+        //if($tokenInterface->isAuthenticated()){
+           // $this->addFlash('redirect','Vous êtes déja connecté');
+           // return $this->redirectToRoute('home');
+       // }
 
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
