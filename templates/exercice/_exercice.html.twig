@@ -1,17 +1,41 @@
 <div class="card mb-4">
+	{% if exercice.category.title == 'Java' %}
+		<img src="/images/utils/java.jpg " alt="card-img-top" style="width: 100%; height:auto;">
+	{% elseif exercice.category.title =='C' %}
+		<img src="/images/utils/C.jpg " alt="card-img-top" style="width: 100%; height:auto;">
+	{% elseif exercice.category.title =='Javascript' %}
+		<img src="/images/utils/javascript.jpg " alt="card-img-top" style="width: 100%; height:auto;">
+	{% elseif exercice.category.title =='Php'%}
+		<img src="/images/utils/php.jpg " alt="card-img-top" style="width: 100%; height:auto;">
+	{% elseif exercice.category.title =='Python'%}
+		<img src="/images/utils/python.jpg " alt="card-img-top" style="width: 100%; height:auto;">
+	{% elseif exercice.category.title =='Ocaml' %}
+		<img src="/images/utils/ocaml.jpg " alt="card-img-top" style="width: 100%; height:auto;">
+	{% else %}
+		<img src="/images/utils/matrix.jpg " alt="card-img-top" style="width: 100%; height:auto;">
+	{% endif %}
+
+	{#<img src="{{ vich_uploader_asset(exercice,'solutionFile')  }}" alt="card-img-top" style="width: 100%; height:auto;">#}
 	<div class="card-body">
 		<h5 class="card-title">
 			<a href="{{ path('exercice.show', {'id':exercice.id , slug:exercice.slug})}}">
 				{{ exercice.title }}
 			</a>
-			<small>{{exercice.category.title}} </small>
+			<small>{{exercice.category.title}}
+			</small>
 		</h5>
 		<p class="card-text">
 			{{exercice.description}}
 		</p>
-		<div class="text-primary">
-			{{ exercice.difficulte}}
-			<img src="https://pngimage.net/wp-content/uploads/2018/06/rating-star-png-7.png" alt="difficulte" width="30" height="30"/>
+		<div class="star-class">
+			{% for i in range(1,5) %}
+				{% if exercice.difficulte >= i %}
+				<img src="/images/utils/star.png" alt="difficulte" width="15" height="15"/>
+				{% else %}
+				<img src="/images/utils/star_empty.png" alt="difficulte" width="15" height="15"/>
+				{% endif %}
+			{% endfor %}
+
 		</div>
 	</div>
 </div>

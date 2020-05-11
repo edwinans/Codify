@@ -92,10 +92,35 @@ class ExerciceController extends AbstractController{
             ]);
         }
         $exercice=$this->repository->find($id);
+        $myfile=__DIR__ .'/../../public/images/exercices/'.$exercice->getFilename();
+        $fn = fopen($myfile,'r');
+        while(!feof($fn)){
+            $result[] = fgets($fn);
+        }
+        fclose($fn);
+
         return $this->render('exercice/show.html.twig',[
+            'solutions'=>$result,
             'exercice'=> $exercice,
             'current_menu'=> 'exercices',
             'commentForm'=>$form->createView()
         ]);
     }   
+
+    /**
+     * @Route("/exercices/{slug}-{id}/play",name="exercice.play",requirements={"slug": "[a-z0-9\-]*"})
+     * @return Response
+     */
+    public function play($slug,$id){
+        $exercice=$this->repository->find($id);
+        $myfile=__DIR__ .'/../../public/images/exercices/'.$exercice->getFilename();
+        $fn = fopen($myfile,'r');
+        while(!feof($fn)){
+            $result[] = fgets($fn);
+        }
+        fclose($fn);
+        return $this->render('exercice/probleme.html.twig',[
+            'solutions'=>$result
+        ]);
+    }
 }

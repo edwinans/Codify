@@ -5,10 +5,13 @@ namespace App\Controller\Enseignant;
 use App\Entity\Exercice;
 use App\Form\ExerciceType;
 use App\Repository\ExerciceRepository;
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -58,12 +61,16 @@ class EnseignantExerciceController extends AbstractController{
     /**
      * @Route("/enseignant/exercice/{id}",name="enseignant.exercice.edit",methods="GET|POST")
      */
-    public function edit(Exercice $exercice, Request $request){
+    public function edit(Exercice $exercice, Request $request,CacheManager $cache,UploaderHelper $helper){
 
         $form=$this->createForm(ExerciceType::class,$exercice);
         $form->handleRequest($request);  //gere la requete
 
         if($form->isSubmitted() && $form->isValid()){
+            //supprime les anciennes images , stockés dans le cache media/
+            if ($exercice->getSolutionFile() instanceof UploadedFile){
+                $cache->remove($helper->asset($exercice,'solutionFile'));
+            }
             $this->manager->flush();
             $this->addFlash('success','Bien modifié avec succés');
             return $this->redirectToRoute('enseignant.exercice.index'); //listing des exos
@@ -78,7 +85,12 @@ class EnseignantExerciceController extends AbstractController{
     /**
      * @Route("/enseignant/exercice/{id}",name="enseignant.exercice.delete",methods="DELETE")
      */
-    public function delete(Exercice $exercice,Request $request){
+    public function delete(Exercice $exercice,Request $request,CacheManager $cache,UploaderHelper $helper){
+        //supprime les anciennes images , stockés dans le cache media/
+        if ($exercice->getSolutionFile() instanceof UploadedFile){
+            $cache->remove($helper->asset($exercice,'solutionFile'));
+        }
+        
         if($this->isCsrfTokenValid('delete'. $exercice->getId(),$request->get('_token'))){
             $this->manager->remove($exercice);
             $this->manager->flush();

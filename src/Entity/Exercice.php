@@ -2,14 +2,18 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ExerciceRepository")
+ * @Vich\Uploadable
  */
 class Exercice 
 {
@@ -57,6 +61,26 @@ class Exercice
      */
     private $comments;
 
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255)
+     */
+    private $filename;
+
+
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="exercice_solution",fileNameProperty="filename")
+     */
+    private $solutionFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated_at;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -98,10 +122,6 @@ class Exercice
         $this->difficulte = $difficulte;
 
         return $this;
-    }
-
-    public function getStarsDifficulte(int $difficulte){
-        
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -155,6 +175,59 @@ class Exercice
                 $comment->setExercice(null);
             }
         }
+
+        return $this;
+    }
+
+     /**
+     * @return null|string
+     */
+    public function getFilename(): string
+    {
+        return $this->filename;
+    }
+
+    /**
+     * @param null|string $filename
+     * @return Exercice
+     */
+    public function setFilename(?string $filename): Exercice
+    {
+        $this->filename = $filename;
+        return $this;
+    }
+
+
+    /**
+     * @return null|File
+     */
+    public function getSolutionFile(): ?File
+    {
+        return $this->solutionFile;
+    }
+
+    /**
+     * @param null|File $solutionFile
+     * @return Exercice
+     */
+    public function setSolutionFile(?File $solutionFile): Exercice
+    {
+     
+        $this->solutionFile = $solutionFile;
+        if($this->solutionFile instanceof UploadedFile){
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }
