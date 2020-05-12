@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -50,9 +52,15 @@ class User implements UserInterface
      */
     private $roles = [];
 
+    /**
+     * @ORM\OneToMany(targetEntity=Exercice::class, mappedBy="author")
+     */
+    private $exericesCreated;
+
     public function __construct()
     {
         $this->roles[]='ROLE_ETUDIANT';
+        $this->exericesCreated = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,6 +155,37 @@ class User implements UserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Exercice[]
+     */
+    public function getExericesCreated(): Collection
+    {
+        return $this->exericesCreated;
+    }
+
+    public function addExericesCreated(Exercice $exericesCreated): self
+    {
+        if (!$this->exericesCreated->contains($exericesCreated)) {
+            $this->exericesCreated[] = $exericesCreated;
+            $exericesCreated->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExericesCreated(Exercice $exericesCreated): self
+    {
+        if ($this->exericesCreated->contains($exericesCreated)) {
+            $this->exericesCreated->removeElement($exericesCreated);
+            // set the owning side to null (unless already changed)
+            if ($exericesCreated->getAuthor() === $this) {
+                $exericesCreated->setAuthor(null);
+            }
+        }
 
         return $this;
     }

@@ -80,6 +80,11 @@ class Exercice
      */
     private $updated_at;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="exericesCreated")
+     */
+    private $author;
+
 
     public function getId(): ?int
     {
@@ -228,6 +233,18 @@ class Exercice
     public function setUpdatedAt(?\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

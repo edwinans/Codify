@@ -7,6 +7,7 @@ use App\Form\ExerciceType;
 use App\Repository\ExerciceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -21,9 +22,10 @@ class EnseignantExerciceController extends AbstractController{
      */
     private $repository;
     
-    public function __construct(ExerciceRepository $repository,EntityManagerInterface $manager){
+    public function __construct(ExerciceRepository $repository,EntityManagerInterface $manager,Security $security){
         $this->manager=$manager;
         $this->repository=$repository;
+        $this->security =$security;
     }
 
     /**
@@ -43,10 +45,11 @@ class EnseignantExerciceController extends AbstractController{
      */
     public function new(Request $request){
         $exercice=new Exercice();
-
         $form=$this->createForm(ExerciceType::class,$exercice);
         $form->handleRequest($request);  //gere la requete
         if($form->isSubmitted() && $form->isValid()){
+            $exercice->setAuthor($this->security->getUser());
+
             $this->manager->persist($exercice);
             $this->manager->flush();
             $this->addFlash('success','Bien créé avec succés');

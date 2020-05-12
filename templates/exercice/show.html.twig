@@ -13,7 +13,7 @@
 				{% elseif exercice.category.title =='Javascript' %}
 					<img src="/images/utils/javascript.jpg " alt="card-img-top" style="width: 80%; height:80%;">
 				{% elseif exercice.category.title =='Php'%}
-					<img src="/images/utils/php.jpg " alt="card-img-top" style="width: 80%; height:80%;">
+					<img src="/images/utils/php.jpg " alt="card-img-top" style="width: 70%; height:70%;">
 				{% elseif exercice.category.title =='Python'%}
 					<img src="/images/utils/python.jpg " alt="card-img-top" style="width: 80%; height:80%;">
 				{% elseif exercice.category.title =='Ocaml' %}
@@ -35,6 +35,10 @@
 					{{exercice.createdAt | date('H:i')}}
 					dans la catégorie
 					{{exercice.category.title}}
+					par
+					{% if exercice.author %}
+						{{exercice.author.username}}
+					{% endif %}
 				</h5>
 
 				<a href="#" class="btn btn-primary">
@@ -42,13 +46,13 @@
 				</a>
 
 				<h6>
-				{% for solution_line in solutions %}
-					{{solution_line}}<br>
-				{% endfor %}
-				
+					{% for solution_line in solutions %}
+						{{solution_line}}<br>
+					{% endfor %}
+
 				</h6>
 
-				 <a href="{{ path('exercice.play', {'id':exercice.id , slug:exercice.slug}) }}">Play</a>
+				<a href="{{ path('exercice.play', {'id':exercice.id , slug:exercice.slug}) }}">Play</a>
 
 			</div>
 		</div>

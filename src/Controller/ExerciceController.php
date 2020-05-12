@@ -120,7 +120,9 @@ class ExerciceController extends AbstractController{
         }
         fclose($fn);
         return $this->render('exercice/probleme.html.twig',[
-            'solutions'=>$result
+            'solutions'=>$result,
+            'exercice'=> $exercice
+            
         ]);
     }
 }
