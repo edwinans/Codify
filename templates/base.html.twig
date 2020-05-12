@@ -25,6 +25,14 @@
 								Exercices
 							</a>
 						</li>
+						{% if app.user %}
+						<li class="nav-item ">
+							<a class="nav-link {% if current_menu is defined and current_menu == 'user' %} active{% endif %}" href="{{path('user.show', {'id':app.user.id})}}">
+								Profil
+							</a>
+						</li>
+						{% endif %}
+						
 						{% if app.user and is_granted('ROLE_ENSEIGNANT') %}
 							<li class="nav-item ">
 								<a class="nav-link {% if current_menu is defined and current_menu == 'enseignant' %} active{% endif %}" href="{{path('enseignant.exercice.index')}}">

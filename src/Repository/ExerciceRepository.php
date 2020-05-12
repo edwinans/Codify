@@ -50,6 +50,17 @@ class ExerciceRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Exerice[]
+     */
+    public function findAllCreated($id):array{
+        $arg='e.author = '.$id;
+        return $this->createQueryBuilder('e')
+            ->where($arg)
+            ->getQuery()
+            ->getResult();
+    }
     /**
      * @return Exerice[]
      */
@@ -90,5 +101,7 @@ class ExerciceRepository extends ServiceEntityRepository
                 ->orderBy("e.difficulte", "DESC");
 
     }
+
+    
 
 }
