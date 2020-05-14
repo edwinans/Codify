@@ -26,7 +26,7 @@ function postRequest() {
 
     $.ajax({
             type: 'POST',
-            url: '../backend.php',
+            url: '/asset/backend.php',
             data: {
                 'indexArray': indexArray
             },

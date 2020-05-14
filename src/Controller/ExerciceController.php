@@ -119,7 +119,7 @@ class ExerciceController extends AbstractController{
             $result[] = fgets($fn);
         }
         fclose($fn);
-        return $this->render('exercice/probleme.html.twig',[
+        return $this->render('exercice/www1/index.html.twig',[
             'solutions'=>$result,
             'exercice'=> $exercice
             
