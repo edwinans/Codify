@@ -121,18 +121,34 @@ class ExerciceController extends AbstractController
      * @Route("/exercices/{slug}-{id}/play",name="exercice.play",requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function play($slug, $id, Request $request)
+    public function play($id,Request $request)
     {
         $exercice = $this->repository->find($id);
         $myfile = __DIR__ . '/../../public/images/exercices/' . $exercice->getFilename();
         $fn = fopen($myfile, 'r');
         while (!feof($fn)) {
-            $result[] = fgets($fn);
+            $resultTab[] = fgets($fn);
+            $resultTab=array_filter($resultTab);
         }
         fclose($fn);
+        //$solution = ["item_1", "item_3", "item_2", "item_4", "item_5"];
+
+        if ($request->isXMLHttpRequest()) {
+            $indexArray = $_POST["indexArray"];
+            if ($resultTab == $indexArray) {
+                $result = "s";
+            } else {
+                $result = "f";
+            }
+            $reponse = new JsonResponse();
+            $reponse->headers->set('Content-Type', 'application/json');
+            json_encode(["result" => $result]);
+            $reponse->setData(json_encode(["result" => $result]));
+            return $reponse;
+        }
 
         return $this->render('exercice/probleme.html.twig', [
-            'solutions' => $result,
+            'solutions' => $resultTab,
             'exercice' => $exercice
         ]);
     }
@@ -146,22 +162,19 @@ class ExerciceController extends AbstractController
         $solution = ["item_1", "item_3", "item_2", "item_4", "item_5"];
 
         // récupération de la solution envoyé par l'utilisateur
-
-        $indexArray = $_POST["indexArray"];
-
-
-        if ($solution == $indexArray) {
-            $result = "s";
-        } else {
-            $result = "f";
-            
+        if ($request->isXMLHttpRequest()) {
+            $indexArray = $_POST["indexArray"];
+            if ($solution == $indexArray) {
+                $result = "s";
+            } else {
+                $result = "f";
+            }
+            $reponse = new JsonResponse();
+            $reponse->headers->set('Content-Type', 'application/json');
+            json_encode(["result" => $result]);
+            $reponse->setData(json_encode(["result" => $result]));
+            return $reponse;
         }
-        $reponse = new JsonResponse();
-        $reponse->headers->set('Content-Type', 'application/json');
-        json_encode(["result" => $result]);
-        $reponse->setData(json_encode(["result" => $result]));
-        return $reponse;
-
         return new Response("Ce n'est pas une requête Ajax");
     }
 }

@@ -24,9 +24,10 @@ function getArray() {
 function postRequest() {
     var indexArray = getArray();
     //console.log(indexArray);
+    // var urlToGo = $('#path-to-controller').data("href");
     $.ajax({
             type: 'POST',
-            url: "/exercices/handleExercice",
+            url: $('#path-to-controller').data("href"),
             dataType: "json",
             data: {
                 'indexArray': indexArray
@@ -45,6 +46,7 @@ function postRequest() {
             }
         })
         .done(function(data) {
+
             var json = JSON.parse(data);
             console.log(data);
 

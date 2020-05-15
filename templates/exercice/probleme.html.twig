@@ -5,7 +5,7 @@
 	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<!-- custom stylesheet css -->
 	<link
-	rel="stylesheet" href="/asset/styles.css">
+	rel="stylesheet" href="/asset/css/styles.css">
 
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -21,10 +21,7 @@
 			<div class="card white">
 				<div class="card-content blue-grey-text darken-1">
 					<span class="card-title">Problème</span>
-					<!-- TODO:
-																				          Renseigner le sujet de l'exercice ici -->
-					<p>I am a very simple card. I am good at containing small bits of information.
-																								          I am convenient because I require little markup to use effectively.</p>
+					<p>{{exercice.description}}</p>
 				</div>
 			</div>
 		</div>
@@ -33,9 +30,8 @@
 			<div class="card white">
 				<div
 					class="card-content blue-grey-text darken-1">
-					<!-- TODO:
-																				        	Affiche succès / echec en fonction de la réponse
-																				        	 -->
+					<!-- TODO:Affiche succès / echec en fonction de la réponse
+																									        	 -->
 					<span id="result" class="card-title center gray-text">Aucun essai fourni</span>
 				</div>
 			</div>
@@ -54,12 +50,10 @@
 					<div class="responsive-table">
 						<div>
 							<ul class="list1 sortable">
-
-								<li id="item_1">Item 1</li>
-								<li id="item_2">Item 2</li>
-								<li id="item_3">Item 3</li>
-								<li id="item_4">Item 4</li>
-								<li id="item_5">Item 5</li>
+								
+								{% for solution_line in solutions %}
+									<li id="{{solution_line}}">{{solution_line}}</li>
+								{% endfor %}
 							</ul>
 						</div>
 					</div>
@@ -88,6 +82,6 @@
 
 
 {% block javascripts %}
-	<script src="/asset/scripts.js"></script>
+	<script src="/asset/js/scripts.js"></script>
 
 {% endblock %}
