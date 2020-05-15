@@ -45,15 +45,10 @@
 					Contacter l'enseignant
 				</a>
 
-				<h6>
-					{% for solution_line in solutions %}
-						{{solution_line}}<br>
-					{% endfor %}
-
-				</h6>
-
+				{% if app.user %}
 				<a href="{{ path('exercice.play', {'id':exercice.id , slug:exercice.slug}) }}">Play</a>
-
+				{% endif %}
+				
 			</div>
 		</div>
 	</div>

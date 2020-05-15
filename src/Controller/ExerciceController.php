@@ -50,8 +50,6 @@ class ExerciceController extends AbstractController
     }
 
 
-
-
     /**
      * @Route("/exercices" , name="exercice.index")
      * @return Response
@@ -61,8 +59,6 @@ class ExerciceController extends AbstractController
         $search = new ExerciceFiltre();
         $form = $this->createForm(ExerciceFiltreType::class, $search);
         $form->handleRequest($request);
-
-
 
         $exercices = $paginator->paginate(
             $this->repository->findAllQuery($search),
@@ -98,7 +94,7 @@ class ExerciceController extends AbstractController
             $manager->flush();
             return $this->redirectToRoute('exercice.show', [
                 'id' => $id,
-                'slug' => 'exercices'
+                'slug' => $slug
             ]);
         }
         $exercice = $this->repository->find($id);
@@ -121,60 +117,40 @@ class ExerciceController extends AbstractController
      * @Route("/exercices/{slug}-{id}/play",name="exercice.play",requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function play($id,Request $request)
+    public function play($slug, $id, Request $request)
     {
-        $exercice = $this->repository->find($id);
-        $myfile = __DIR__ . '/../../public/images/exercices/' . $exercice->getFilename();
-        $fn = fopen($myfile, 'r');
-        while (!feof($fn)) {
-            $resultTab[] = fgets($fn);
-            $resultTab=array_filter($resultTab);
-        }
-        fclose($fn);
-        //$solution = ["item_1", "item_3", "item_2", "item_4", "item_5"];
-
-        if ($request->isXMLHttpRequest()) {
-            $indexArray = $_POST["indexArray"];
-            if ($resultTab == $indexArray) {
-                $result = "s";
-            } else {
-                $result = "f";
+        if ($this->security->getUser()) {
+            $exercice = $this->repository->find($id);
+            $myfile = __DIR__ . '/../../public/images/exercices/' . $exercice->getFilename();
+            $fn = fopen($myfile, 'r');
+            while (!feof($fn)) {
+                $resultTab[] = fgets($fn);
+                $resultTab = array_filter($resultTab);
             }
-            $reponse = new JsonResponse();
-            $reponse->headers->set('Content-Type', 'application/json');
-            json_encode(["result" => $result]);
-            $reponse->setData(json_encode(["result" => $result]));
-            return $reponse;
-        }
+            fclose($fn);
+            //$solution = ["item_1", "item_3", "item_2", "item_4", "item_5"];
 
-        return $this->render('exercice/probleme.html.twig', [
-            'solutions' => $resultTab,
-            'exercice' => $exercice
-        ]);
-    }
-
-    /**
-     * @Route("/exercices/handleExercice",name="exercice.handle")
-     * @return Response
-     */
-    public function play2(Request $request)
-    {
-        $solution = ["item_1", "item_3", "item_2", "item_4", "item_5"];
-
-        // récupération de la solution envoyé par l'utilisateur
-        if ($request->isXMLHttpRequest()) {
-            $indexArray = $_POST["indexArray"];
-            if ($solution == $indexArray) {
-                $result = "s";
-            } else {
-                $result = "f";
+            if ($request->isXMLHttpRequest()) {
+                $indexArray = $_POST["indexArray"];
+                if ($resultTab == $indexArray) {
+                    $result = "s";
+                } else {
+                    $result = "f";
+                }
+                $reponse = new JsonResponse();
+                $reponse->headers->set('Content-Type', 'application/json');
+                json_encode(["result" => $result]);
+                $reponse->setData(json_encode(["result" => $result]));
+                return $reponse;
             }
-            $reponse = new JsonResponse();
-            $reponse->headers->set('Content-Type', 'application/json');
-            json_encode(["result" => $result]);
-            $reponse->setData(json_encode(["result" => $result]));
-            return $reponse;
+
+            return $this->render('exercice/probleme.html.twig', [
+                'solutions' => $resultTab,
+                'exercice' => $exercice
+            ]);
+        } else {
+            $this->addFlash('mustLogin', 'Vous devez vous connecter pour avoir accès à cette partie');
+            return $this->redirectToRoute('login');
         }
-        return new Response("Ce n'est pas une requête Ajax");
     }
 }
