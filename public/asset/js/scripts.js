@@ -65,6 +65,6 @@ function postRequest() {
             alert('Something went wrong: ' + textStatus);
         })
         .always(function(jqXHR, textStatus) {
-            window.document.location = '/';
+            //window.document.location = '/';
         });
 }

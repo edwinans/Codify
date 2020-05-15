@@ -142,23 +142,25 @@ class ExerciceController extends AbstractController
             $user=$security->getUser();
             $repository_resolution=$this->repo_res;
             if ($request->isXMLHttpRequest()) {
+
                 $resolutions=$repository_resolution->findByUserAndExercice($exercice,$user);
-                if($resolutions == null ){
+                if(empty($resolutions) or $resolutions == null){
                 $resolution= new Resolution();
-                }
+                }else{
                 $resolution=$resolutions[0];
+                }
                 $resolution->setExercice($exercice)
                            ->setUser($user)
                            ->setLastTryAt(new \DateTime());
+                if($resolution->getIsResolved()==false){
+                    $resolution->setTentatives(($resolution->getTentatives()+1));
+                }
                 $indexArray = $_POST["indexArray"];
                 if ($resultTab == $indexArray) {
                     $result = "s";
                     $resolution->setIsResolved(true);
                 } else {
                     $result = "f";
-                    if($resolution->getIsResolved()== false){
-                    $resolution->setTentatives(($resolution->getTentatives()+1));
-                    }
                 }
                 $manager->persist($resolution);
                 $manager->flush();

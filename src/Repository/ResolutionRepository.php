@@ -32,6 +32,7 @@ class ResolutionRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('r')
             ->andWhere($first)
             ->andWhere($second)
+            ->setMaxResults(1)
             ->getQuery()
             ->getResult();
     }
