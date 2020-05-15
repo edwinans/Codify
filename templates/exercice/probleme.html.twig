@@ -1,51 +1,30 @@
 {% extends 'base.html.twig' %}
-
-{% block title exercice.title %}
 {% block head %}
 	<!-- Compiled and minified CSS -->
 	<link
 	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<!-- custom stylesheet css -->
-	<style>
-		.sortable {
-			font-family: 'Ubuntu';
-			list-style-type: none;
-			list-style-position: inside;
-			margin: 0 12px 8px 0;
-			width: 60%;
-			padding: 2px;
-			border-width: 1px;
-			border-radius: 5px;
-			border-style: solid;
-			border-color: gray;
-			min-height: 100px;
-			color: white;
-			width: 100%;
-		}
-		.sortable li {
-			margin: 0 3px 3px;
-			padding: 0.4em 0.4em 0.4em 1.5em;
-			font-size: 1em;
-			height: 30px;
-			background-color: #546e7a;
-		}
-	</style>
+	<link
+	rel="stylesheet" href="/asset/styles.css">
 
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+	<title>Exercice</title>
 {% endblock %}
-
-
 {% block body %}
+
+
 	<!-- start section description -->
 	<div class="row">
 		<div class="col s12 m6">
 			<div class="card white">
 				<div class="card-content blue-grey-text darken-1">
 					<span class="card-title">Problème</span>
-					<p>
-						{{exercice.description}}
-					</p>
+					<!-- TODO:
+																				          Renseigner le sujet de l'exercice ici -->
+					<p>I am a very simple card. I am good at containing small bits of information.
+																								          I am convenient because I require little markup to use effectively.</p>
 				</div>
 			</div>
 		</div>
@@ -55,14 +34,15 @@
 				<div
 					class="card-content blue-grey-text darken-1">
 					<!-- TODO:
-																																													        	Affiche succès / echec en fonction de la réponse
-																																													        	 -->
+																				        	Affiche succès / echec en fonction de la réponse
+																				        	 -->
 					<span id="result" class="card-title center gray-text">Aucun essai fourni</span>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- end section description  -->
+
 	<!-- start section exercice -->
 	<div
 		class="row">
@@ -73,15 +53,9 @@
 					<span class="card-title">Propositions</span>
 					<div class="responsive-table">
 						<div>
-							<ul
-								class="list1 sortable">
-								<!-- TODO:
-																																																																			    		Charger l'énoncé ligne par ligne 
-																																																																			    		directement dans les balises <li>.
-																																																																			    	 -->
-								<li id="item_1">
-									For i in range (5):
-								</li>
+							<ul class="list1 sortable">
+
+								<li id="item_1">Item 1</li>
 								<li id="item_2">Item 2</li>
 								<li id="item_3">Item 3</li>
 								<li id="item_4">Item 4</li>
@@ -108,68 +82,12 @@
 			<button class="btn right green-text white" onclick="reloadData()">Effacer</button>
 		</div>
 	</div>
+	{#<div id="path-to-controller" data-href="{{ path('exercice.play', {slug: exercice.slug,id: exercice.id})}}"></div>#}
 	<!-- end section exercice  -->
-
-
 {% endblock %}
+
+
 {% block javascripts %}
-<script>$(function () {
-    $(".list1, .list2").sortable({
-      connectWith: ".sortable"
-    });
-  });
+	<script src="/asset/scripts.js"></script>
 
-// recharge la page 
-function reloadData(argument) {
-  window.location.reload();
-}
-
-// retourne la solution fournis par l'utilisateur
-function getArray() {
-  var indexArray = [];
-  var lis = document.getElementById("list2")
-          .querySelectorAll('li');
-  lis.forEach((item) => {
-    indexArray.push(item.id);
-  });
-  return indexArray;
-}
-
-// Envoi les donnée post via une requete async. ajax
-function postRequest() {
-  var indexArray = getArray();
-
-  $.ajax({
-    type: 'POST',
-    url: '../backend.php', 
-    data: {
-      'indexArray':indexArray
-    },
-    statusCode: {
-        301: function(responseObject, textStatus, errorThrown) {
-            //yor code goes here
-        },
-        302: function(responseObject, textStatus, errorThrown) {
-            //yor code goes here
-        }           
-    }
-  })
-  .done(function(data) {
-    // data est sous le format json
-    var json = JSON.parse(data);
-    var resultView = document.getElementById("result");
-    if (json["result"] == "f") {
-      resultView.innerHTML='<span id="result" class="card-title center red-text">Echec</span>';
-    } else {
-      resultView.innerHTML='<span id="result" class="card-title center green-text">Succès</span>';
-    }
-  })
-  .fail(function(jqXHR, textStatus){
-      alert('Something went wrong: ' + textStatus);
-  })
-  .always(function(jqXHR, textStatus) {
-     //alert('Ajax request was finished')
-  });
-}
-</script>
 {% endblock %}

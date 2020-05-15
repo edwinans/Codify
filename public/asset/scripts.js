@@ -23,27 +23,33 @@ function getArray() {
 // Envoi les donnée post via une requete async. ajax
 function postRequest() {
     var indexArray = getArray();
-
+    //console.log(indexArray);
     $.ajax({
             type: 'POST',
-            url: '/asset/backend.php',
+            url: "/exercices/handleExercice",
+            dataType: "json",
             data: {
                 'indexArray': indexArray
             },
             statusCode: {
                 301: function(responseObject, textStatus, errorThrown) {
-                    //yor code goes here
+
                 },
                 302: function(responseObject, textStatus, errorThrown) {
                     //yor code goes here
                 }
+            },
+            success: function(data1) {
+                //console.log(data1)
+                //alert("envoyé avec succes!");
             }
         })
         .done(function(data) {
-            // data est sous le format json
             var json = JSON.parse(data);
+            console.log(data);
+
             var resultView = document.getElementById("result");
-            if (json["result"] == "f") {
+            if (json["result"] == 'f') {
                 resultView.innerHTML = '<span id="result" class="card-title center red-text">Echec</span>';
             } else {
                 resultView.innerHTML = '<span id="result" class="card-title center green-text">Succès</span>';
