@@ -57,10 +57,16 @@ class User implements UserInterface
      */
     private $exericesCreated;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Resolution::class, mappedBy="user")
+     */
+    private $resolutions;
+
     public function __construct()
     {
         $this->roles[]='ROLE_ETUDIANT';
         $this->exericesCreated = new ArrayCollection();
+        $this->resolutions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -184,6 +190,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($exericesCreated->getAuthor() === $this) {
                 $exericesCreated->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resolution[]
+     */
+    public function getResolutions(): Collection
+    {
+        return $this->resolutions;
+    }
+
+    public function addResolution(Resolution $resolution): self
+    {
+        if (!$this->resolutions->contains($resolution)) {
+            $this->resolutions[] = $resolution;
+            $resolution->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResolution(Resolution $resolution): self
+    {
+        if ($this->resolutions->contains($resolution)) {
+            $this->resolutions->removeElement($resolution);
+            // set the owning side to null (unless already changed)
+            if ($resolution->getUser() === $this) {
+                $resolution->setUser(null);
             }
         }
 

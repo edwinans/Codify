@@ -5,10 +5,13 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Exercice;
 use App\Form\CommentType;
+use App\Entity\Resolution;
 use App\Entity\ExerciceFiltre;
 use Doctrine\ORM\EntityManager;
 use App\Form\ExerciceFiltreType;
 use App\Repository\ExerciceRepository;
+use App\Repository\ResolutionRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Serializer\Serializer;
@@ -42,11 +45,18 @@ class ExerciceController extends AbstractController
      */
     private $security;
 
-    public function __construct(ExerciceRepository $repository, EntityManagerInterface $manager, Security $security)
+    /**
+     *
+     * @var ResolutionRepository
+     */
+    private $repo_res;
+
+    public function __construct(ExerciceRepository $repository, EntityManagerInterface $manager, Security $security,ResolutionRepository $repo_res)
     {
         $this->repository = $repository;
         $this->manager = $manager;
         $this->security = $security;
+        $this->repo_res= $repo_res;
     }
 
 
@@ -117,7 +127,7 @@ class ExerciceController extends AbstractController
      * @Route("/exercices/{slug}-{id}/play",name="exercice.play",requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function play($slug, $id, Request $request)
+    public function play($slug, $id, Request $request,Security $security,EntityManagerInterface $manager)
     {
         if ($this->security->getUser()) {
             $exercice = $this->repository->find($id);
@@ -128,15 +138,31 @@ class ExerciceController extends AbstractController
                 $resultTab = array_filter($resultTab);
             }
             fclose($fn);
-            //$solution = ["item_1", "item_3", "item_2", "item_4", "item_5"];
-
+            
+            $user=$security->getUser();
+            $repository_resolution=$this->repo_res;
             if ($request->isXMLHttpRequest()) {
+                $resolutions=$repository_resolution->findByUserAndExercice($exercice,$user);
+                if($resolutions == null ){
+                $resolution= new Resolution();
+                }
+                $resolution=$resolutions[0];
+                $resolution->setExercice($exercice)
+                           ->setUser($user)
+                           ->setLastTryAt(new \DateTime());
                 $indexArray = $_POST["indexArray"];
                 if ($resultTab == $indexArray) {
                     $result = "s";
+                    $resolution->setIsResolved(true);
                 } else {
                     $result = "f";
+                    if($resolution->getIsResolved()== false){
+                    $resolution->setTentatives(($resolution->getTentatives()+1));
+                    }
                 }
+                $manager->persist($resolution);
+                $manager->flush();
+
                 $reponse = new JsonResponse();
                 $reponse->headers->set('Content-Type', 'application/json');
                 json_encode(["result" => $result]);

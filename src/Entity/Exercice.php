@@ -20,6 +20,7 @@ class Exercice
     public function __construct(){
         $this->created_at=new \DateTime();
         $this->comments = new ArrayCollection();
+        $this->resolutions = new ArrayCollection();
     }
     /**
      * @ORM\Id()
@@ -84,6 +85,11 @@ class Exercice
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="exericesCreated")
      */
     private $author;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Resolution::class, mappedBy="exercice")
+     */
+    private $resolutions;
 
 
     public function getId(): ?int
@@ -247,5 +253,47 @@ class Exercice
         $this->author = $author;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Resolution[]
+     */
+    public function getResolutions(): Collection
+    {
+        return $this->resolutions;
+    }
+
+    public function addResolution(Resolution $resolution): self
+    {
+        if (!$this->resolutions->contains($resolution)) {
+            $this->resolutions[] = $resolution;
+            $resolution->setExercice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResolution(Resolution $resolution): self
+    {
+        if ($this->resolutions->contains($resolution)) {
+            $this->resolutions->removeElement($resolution);
+            // set the owning side to null (unless already changed)
+            if ($resolution->getExercice() === $this) {
+                $resolution->setExercice(null);
+            }
+        }
+        return $this;
+    }
+    /** 
+     * @param User $user
+     * @return boolean
+     */
+    public function isResolvedByUser(User $user):bool{
+        foreach($this->resolutions as $resolution){
+            if($resolution->getUser() == $user and $resolution->getIsResolved()==true ){
+                return true;
+            }
+        }
+        return false;
     }
 }

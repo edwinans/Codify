@@ -21,8 +21,13 @@
 			<a href="{{ path('exercice.show', {'id':exercice.id , slug:exercice.slug})}}">
 				{{ exercice.title }}
 			</a>
-			<small>{{exercice.category.title}}
-			</small>
+			{#<small>{{exercice.category.title}}	</small>#}
+			{#{% if app.user  %}
+			<span style="color: chartreuse;">
+				<i class="fas fa-check-circle"></i>
+			</span>
+			{% endif %}#}
+			
 		</h5>
 		<p class="card-text">
 			{{exercice.description}}
@@ -30,12 +35,15 @@
 		<div class="star-class">
 			{% for i in range(1,5) %}
 				{% if exercice.difficulte >= i %}
-				<img src="/images/utils/star.png" alt="difficulte" width="15" height="15"/>
+					<span style="width=15px ;  height=15px ; color: rgb(253, 204, 13);">
+						<i class="fas fa-star"></i>
+					</span>
 				{% else %}
-				<img src="/images/utils/star_empty.png" alt="difficulte" width="15" height="15"/>
+					<span style="width=15px ;  height=15px ; color: rgb(253, 204, 13);">
+						<i class="far fa-star"></i>
+					</span>
 				{% endif %}
 			{% endfor %}
-
 		</div>
 	</div>
 </div>

@@ -53,14 +53,18 @@ function postRequest() {
             var resultView = document.getElementById("result");
             if (json["result"] == 'f') {
                 resultView.innerHTML = '<span id="result" class="card-title center red-text">Echec</span>';
+                alert("Dommage ... reesayez la prochaine fois !");
+
             } else {
                 resultView.innerHTML = '<span id="result" class="card-title center green-text">Succès</span>';
+                alert("Bravo ! ");
             }
+
         })
         .fail(function(jqXHR, textStatus) {
             alert('Something went wrong: ' + textStatus);
         })
         .always(function(jqXHR, textStatus) {
-            //alert('Ajax request was finished')
+            window.document.location = '/';
         });
 }
