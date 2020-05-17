@@ -70,6 +70,8 @@ class EnseignantExerciceController extends AbstractController{
         $form->handleRequest($request);  //gere la requete
 
         if($form->isSubmitted() && $form->isValid()){
+            $exercice->setAuthor($this->security->getUser());
+
             //supprime les anciennes images , stockés dans le cache media/
             if ($exercice->getSolutionFile() instanceof UploadedFile){
                 $cache->remove($helper->asset($exercice,'solutionFile'));

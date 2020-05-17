@@ -25,6 +25,14 @@
 				<div class="col-md-4">
 					{% include( 'exercice/_exercice.html.twig') %}
 				</div>
+				<div>
+					{% for resolution in exercice.resolutions %}
+						<h6> 
+							This have been resolved by {{resolution.user.username}} in {{resolution.tentatives}} 
+						</h6>
+					{% endfor %}
+					
+				</div>
 			{% endfor %}
 		</div>
     {% endif %}

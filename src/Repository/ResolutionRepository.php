@@ -38,6 +38,19 @@ class ResolutionRepository extends ServiceEntityRepository
     }
 
 
+    /** 
+     * @return Resolution[] Returns an array of Resolution objects
+     */
+    public function findAllUserByExercice(Exercice $exercice)
+    {
+        $first ='r.exercice = ' . $exercice->getId();
+        return $this->createQueryBuilder('r')
+            ->andWhere($first)
+            ->getQuery()
+            ->getResult();
+    }
+
+
 
    /* public function findAlreadyTried(Exercice $exercice, User $user): ?Resolution
     {
