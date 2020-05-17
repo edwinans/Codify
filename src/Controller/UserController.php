@@ -49,7 +49,7 @@ class UserController extends AbstractController{
         $exercices=$repository_exercices->findAllCreated($id);
         
 
-        return $this->render('user/show.html.twig',[
+        return $this->render('www2/enseignant.html.twig',[
             'user'=> $user,
             'exercices'=>$exercices,
             'current_menu'=> 'user'

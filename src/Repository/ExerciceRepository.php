@@ -66,7 +66,7 @@ class ExerciceRepository extends ServiceEntityRepository
      */
     public function findLatest():array{
         return $this->createQueryBuilder('p')
-                //->where('p.difficulte=3')
+                ->orderBy('p.created_at','desc')
                 ->setMaxResults(4)
                 ->getQuery()
                 ->getResult();
