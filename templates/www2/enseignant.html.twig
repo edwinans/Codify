@@ -16,41 +16,50 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 {% endblock %}
 {% block body %}
-	<div class="row">
-		<div class="col s6 offset-s3">
-			<div class="card white">
-				<div class="card-content white-text">
-					<span class="card-title blue-grey-text darken-1">Vos Exercices</span>
-					<table class="blue-grey-text darken-1">
-						<thead>
-							<tr>
-								<th>Titre</th>
-								<th>Nb. Tentatives</th>
-							</tr>
-						</thead>
-						<tbody>
-							<!-- TODO: Boucler ici pour afficher ta liste -->
-							{% set i=0 %}
-							{% for exercice in exercices %}
-								{% set i=i+1 %}
-								<tr id="package{{i}}" class="accordion-toggle green white-text" data-toggle="collapse" data-target="#accordion{{i}}">
-									<td>{{exercice.title}}</td>
-									<td>2</td>
-								</tr>
+	<div class="container">
+		<div class="row">
+			<div class="col s6 ">
+				<div class="card white">
+					<div class="card-content white-text">
+						<span class="card-title blue-grey-text darken-1">Vos Exercices</span>
+						<table class="blue-grey-text darken-1">
+							<thead>
 								<tr>
-									<td colspan="3" class="accordion-body collapse" id="accordion{{i}}">
-										<table>
-											{% for resolution in exercice.resolutions %}
-												<tr>
-													<td>{{resolution.user.getUsername()}}</td>
-												</tr>
-											{% endfor %}
-										</table>
-									</td>
+									<th>Titre</th>
+									<th>Pourcentage de réussite global</th>
 								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+
+								{% set i=0 %}
+								{% for exercice in exercices %}
+									{% set i=i+1 %}
+									<tr id="package{{i}}" class="accordion-toggle green white-text" data-toggle="collapse" data-target="#accordion{{i}}">
+										<td>{{exercice.title}}</td>
+										<td>{{exercice.getPercentResolved()}} </td>
+									</tr>
+									<tr>
+										<td colspan="3" class="accordion-body collapse" id="accordion{{i}}">
+											<table>
+												<tr>
+													<th>Name</th>
+													<th>Nb. Tentatives</th>
+													<th>Dernier essai</th>
+												</tr>
+												{% for resolution in exercice.resolutions %}
+													<tr>
+														<td>{{resolution.user.getUsername()}}</td>
+														<td>{{resolution.tentatives}}</td>
+														<td>{{resolution.getLastTryAt() | date('d/m/Y à H:i')}}</td>
+													</tr>
+												{% endfor %}
+											</table>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>

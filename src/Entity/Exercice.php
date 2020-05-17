@@ -4,21 +4,24 @@ namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ResolutionRepository;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ExerciceRepository")
  * @Vich\Uploadable
  */
-class Exercice 
+class Exercice
 {
-    public function __construct(){
-        $this->created_at=new \DateTime();
+    public function __construct()
+    {
+        $this->created_at = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->resolutions = new ArrayCollection();
     }
@@ -108,8 +111,9 @@ class Exercice
 
         return $this;
     }
-    public function getSlug(): string{
-      return (new Slugify())->slugify($this->title); 
+    public function getSlug(): string
+    {
+        return (new Slugify())->slugify($this->title);
     }
     public function getDescription(): ?string
     {
@@ -190,7 +194,7 @@ class Exercice
         return $this;
     }
 
-     /**
+    /**
      * @return null|string
      */
     public function getFilename(): string
@@ -223,9 +227,9 @@ class Exercice
      */
     public function setSolutionFile(?File $solutionFile): Exercice
     {
-     
+
         $this->solutionFile = $solutionFile;
-        if($this->solutionFile instanceof UploadedFile){
+        if ($this->solutionFile instanceof UploadedFile) {
             $this->updated_at = new \DateTime('now');
         }
         return $this;
@@ -288,12 +292,33 @@ class Exercice
      * @param User $user
      * @return boolean
      */
-    public function isResolvedByUser(User $user):bool{
-        foreach($this->resolutions as $resolution){
-            if($resolution->getUser() == $user and $resolution->getIsResolved()==true ){
+    public function isResolvedByUser(User $user): bool
+    {
+        foreach ($this->resolutions as $resolution) {
+            if ($resolution->getUser() == $user and $resolution->getIsResolved() == true) {
                 return true;
             }
         }
         return false;
     }
+
+
+    public function getPercentResolved(){
+        $nb_resolu=0;
+        $nb_participants=0;
+        foreach ($this->resolutions as $resolution) {
+            if($resolution->getIsResolved()){
+                $nb_resolu = $nb_resolu+1;
+            }
+            $nb_participants=$nb_participants+1;
+        }
+
+        try{
+        $result=($nb_resolu)*100/($nb_participants);
+        }catch(\Exception $e){
+            return " Aucune Participation pour le moment ! ";
+        }
+        return $result.' % ';
+    }
 }
+
