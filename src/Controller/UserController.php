@@ -7,6 +7,7 @@ use App\Entity\Exercice;
 use App\Entity\Resolution;
 use App\Repository\UserRepository;
 use App\Repository\ExerciceRepository;
+use App\Repository\ResolutionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Liip\ImagineBundle\Async\ResolveCache;
 use Symfony\Component\Security\Core\Security;
@@ -21,17 +22,24 @@ class UserController extends AbstractController{
      */
     private $repository_exercices;
 
-      /**
+    /**
      * @var UserRepository
      */
     private $repository_users;
 
-    public function __construct(ExerciceRepository $repository_exercices, EntityManagerInterface $manager, Security $security, UserRepository $repository_users)
+    /**
+     * @var ResolutionRepository
+     */
+    private $repository_resolutions;
+
+    public function __construct(ExerciceRepository $repository_exercices, EntityManagerInterface $manager, Security $security, UserRepository $repository_users,ResolutionRepository $repository_resolutions)
     {
         $this->repository_exercices = $repository_exercices;
         $this->manager = $manager;
         $this->security = $security;
         $this->repository_users = $repository_users;
+        $this->repository_resolutions = $repository_resolutions;
+
     }
 
 
@@ -43,16 +51,24 @@ class UserController extends AbstractController{
     public function show($id):Response{
         $repository_user = $this->repository_users;
         $repository_exercices = $this->repository_exercices;
-       
+        $repository_resolution=$this->repository_resolutions;
 
         $user = $repository_user->find($id);
-        $exercices=$repository_exercices->findAllCreated($id);
+        $exercices_enseignant=$repository_exercices->findAllCreated($id);
+        $resolution_etudiant=$repository_resolution->findAllExerciceByUser($user); // Resolution[]
         
-
-        return $this->render('www2/enseignant.html.twig',[
+        if(in_array("ROLE_ENSEIGNANT",$user->getRoles())){
+            return $this->render('user/show_enseignant.html.twig',[
+                'user'=> $user,
+                'exercices'=>$exercices_enseignant,
+                'current_menu'=> 'user'
+            ]);
+        }else{
+        return $this->render('user/show_etudiant.html.twig',[
             'user'=> $user,
-            'exercices'=>$exercices,
+            'resolutions'=>$resolution_etudiant,
             'current_menu'=> 'user'
         ]);
+        }
     }   
 }

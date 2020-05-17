@@ -61,6 +61,8 @@ class ExerciceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+   
     /**
      * @return Exerice[]
      */

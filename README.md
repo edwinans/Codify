@@ -9,8 +9,9 @@ TO DO list:
     * faire attention à la sécurite de tout les champs, formulaire
     * verifier accés des pages avec les roles (get et Post)
     * cascade on delete pour la BDD 
-3. Page Profil Enseignant et Etudiant avec les query 
+3. Page Profil Enseignant et Etudiant avec les query   , done , on affiche uniquement les resultats des étudiants avec % et détails , background color pour echec et  d'autres exos à mettre en bas 
 4. Base de Donnéé clean avec les not null et la remplir
+
 (Si on a un peu de temps) <br>
 5. faire les cours avec listes exercices 
 6. catch all exception et s'assurer des flashmessages !

@@ -1,35 +1,63 @@
 {% extends 'base.html.twig' %}
 {% block title "S'inscrire" %}
 
+{% block head %}
+	<!-- Compiled and minified CSS -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+{% endblock %}
 {% block body %}
-
-	{% if app.user %}{
+	{% if app.user %}
 		<h1>
 			Vous êtes deja connecté
 		</h1>
-        
-
-		}
 	{% else %}
-		<h1>
-			Inscription
-		</h1>
-		{{ form_start(form)}}
-		{{ form_row(form.username, {'label':'Nom d\'utilisateur','attr': {'placeholder': 'Nom d\'utilisateur...'}}
-		)  }}
-		{{ form_row(form.email, {'label':'Adresse email','attr': {'placeholder': 'Adresse email...'}}
-		)  }}
-		{{ form_row(form.password, {'label':'Mot de passe','attr': {'placeholder': 'Mot de passe'}}
-		)  }}
-		{{ form_row(form.confirm_password, {'label':'Confirmation du mot de passe','attr': {'placeholder': 'Repetez votre mot de passe'}}
-		)  }}
+		<div class="container">
+			<div class="row">
+				<div class="col s6 offset-s1">
+					<div class="card white blue-grey-text darken-1">
+						<div class="card-content blue-grey-text darken-1">
+							<span class="card-title">Inscription</span>
+							<div class="row">
+								{{ form_start(form)}}
+								<form class="col s12" action="{{ path('registration')}}" method="post">
+									<div class="row">
+										<div class="input-field col s6">
+											{{ form_row(form.username, {'label':'Nom d\'utilisateur','attr': {'placeholder': 'Nom d\'utilisateur...'}}
+											)  }}
+										</div>
+									</div>
+									<div class="row">
+										<div class="input-field col s12">
+											{{ form_row(form.email, {'label':'Adresse email','attr': {'placeholder': 'Adresse email...'}}
+											)  }}
+										</div>
+									</div>
+									<div class="row">
+										<div class="input-field col s6">
+											{{ form_row(form.password, {'label':'Mot de passe','attr': {'placeholder': 'Mot de passe'}}
+											)  }}
+										</div>
+										<div class="input-field col s6">
+											{{ form_row(form.confirm_password, {'label':'Confirmation du mot de passe','attr': {'placeholder': 'Repetez votre mot de passe'}}
+											)  }}
+										</div>
+									</div>
+									<a href={{path('login')}}>Deja inscrit ? Connectez-vous !</a>
+									<button type="submit" class="btn right">Submit</button>
+									{{ form_end(form)}}
 
-		<button type="submit" class="btn btn-success">
-			Inscription
-		</button>
-		{{ form_end(form)}}
 
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	{% endif %}
 
 {% endblock %}

@@ -19,7 +19,7 @@ class SecurityController extends AbstractController
 
 
     /**
-     * @Route("/inscription", name="security_registration")
+     * @Route("/inscription", name="registration")
      */
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {

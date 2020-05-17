@@ -49,6 +49,17 @@ class ResolutionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+      /** 
+     * @return Resolution[] Returns an array of Resolution objects
+     */
+    public function findAllExerciceByUser(User $user)
+    {
+        $first ='r.user = ' . $user->getId();
+        return $this->createQueryBuilder('r')
+            ->andWhere($first)
+            ->getQuery()
+            ->getResult();
+    }
 
 
 

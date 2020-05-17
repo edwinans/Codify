@@ -303,22 +303,23 @@ class Exercice
     }
 
 
-    public function getPercentResolved(){
-        $nb_resolu=0;
-        $nb_participants=0;
+    public function getPercentResolved()
+    {
+        $nb_resolu = 0;
+        $nb_participants = 0;
         foreach ($this->resolutions as $resolution) {
-            if($resolution->getIsResolved()){
-                $nb_resolu = $nb_resolu+1;
+            if (!in_array("ROLE_ENSEIGNANT", $resolution->getUser()->getRoles())) {
+                if ($resolution->getIsResolved()) {
+                    $nb_resolu = $nb_resolu + 1;
+                }
+                $nb_participants = $nb_participants + 1;
             }
-            $nb_participants=$nb_participants+1;
         }
-
-        try{
-        $result=($nb_resolu)*100/($nb_participants);
-        }catch(\Exception $e){
+        try {
+            $result = ($nb_resolu) * 100 / ($nb_participants);
+        } catch (\Exception $e) {
             return " Aucune Participation pour le moment ! ";
         }
-        return $result.' % ';
+        return $result . ' % ';
     }
 }
-

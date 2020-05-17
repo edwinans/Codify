@@ -1,6 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block title "Se connecter" %}
+{% block head %}
+	<!-- Compiled and minified CSS -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+{% endblock %}
 {% block body %}
 	<div class="container mt-4">
 		{% for message in app.flashes('mustLogin') %}
@@ -8,27 +15,44 @@
 				{{message}}
 			</div>
 		{% endfor %}
-        {% if error %}
-            <div class="alert alert-danger">
-               {{ error.messageKey|trans(error.messageData, 'security') }}
-            </div>
-        {% endif %}
-        
-		<form action="{{ path('login')}}" method="post">
-			<div class="form-group">
-				<label for="username">
-					Nom d'utilisation</label>
-				<input type="text" id="username" name="_username" class="form-control" value={{last_username}}>
+		{% if error %}
+			<div class="alert alert-danger">
+				{{ error.messageKey|trans(error.messageData, 'security') }}
 			</div>
-			<div class="form-group">
-				<label for="password">
-					Mot de passe
-				</label>
-				<input type="password" id="password" name="_password" class="form-control">
+		{% endif %}
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col s6 offset-s1">
+				<div class="card white blue-grey-text darken-1">
+					<div class="card-content blue-grey-text darken-1">
+						<span class="card-title">Connexion</span>
+						<div class="row">
+							<form class="col s12" action="{{ path('login')}}" method="post">
+								<div class="row">
+									<div class="input-field col s6">
+										<label for="username">
+											Nom d'utilisateur</label>
+										<input type="text" id="username" name="_username" class="form-control" value={{last_username}}>
+									</div>
+								</div>
+								<div class="row">
+									<div class="input-field col s6">
+										<div class="form-group">
+											<label for="password">
+												Mot de passe
+											</label>
+											<input type="password" id="password" name="_password" class="form-control">
+										</div>
+									</div>
+								</div>
+								<a href={{path('registration')}}>Pas encore de compte ? Inscrivez-vous ici!</a>
+								<button type="submit" class="btn right">Se connecter</button>
+							</form>
+
+						</div>
+					</div>
+				</div>
 			</div>
-        
-			<button type="submit" class="btn btn-primary">Se connecter</button>
-            </form>
-			<a href={{path('security_registration')}}> Pas encore de compte ? Inscrivez-vous ici!</a>
 		</div>
 	{% endblock %}

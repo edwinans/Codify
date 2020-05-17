@@ -53,12 +53,12 @@ class User implements UserInterface
     private $roles = [];
 
     /**
-     * @ORM\OneToMany(targetEntity=Exercice::class, mappedBy="author")
+     * @ORM\OneToMany(targetEntity=Exercice::class, mappedBy="author",cascade={"remove"})
      */
     private $exericesCreated;
 
     /**
-     * @ORM\OneToMany(targetEntity=Resolution::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Resolution::class, mappedBy="user",cascade={"remove"})
      */
     private $resolutions;
 
