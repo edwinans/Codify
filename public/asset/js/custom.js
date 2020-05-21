@@ -1,4 +1,7 @@
 $(document).ready(function() {
+    $(document).on('click', '#addacomment', function() {
+        $('#addcomment').toggle();
+    });
 
     if ($("#particles-js").length) {
         $.getScript("https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js", function() {
