@@ -11,11 +11,11 @@ html {
 
 #login-box {
     position: absolute;
-    top: 100px;
+    top: 200px;
     left: 50%;
     transform: translateX(-50%);
     width: 350px;
-    margin: 0 auto;
+    margin: auto;
     border: 1px solid black;
     background: rgba(48, 46, 45, 1);
     min-height: 250px;
@@ -31,7 +31,7 @@ html {
 }
 
 #login-box .logo .tweak {
-    color: #ff5252;
+    color: #007afe;
 }
 
 #login-box .controls {
@@ -63,7 +63,7 @@ html {
 #login-box button.btn-custom {
     border-radius: 2px;
     margin-top: 8px;
-    background: #ff5252;
+    background: #007afe;
     border-color: rgba(48, 46, 45, 1);
     color: white;
     font-family: 'Nunito', sans-serif;

@@ -27,57 +27,36 @@
 		</div>
 	{% endif %}
 </div>
-{# <div class="container">
-			<div class="row">
-				<div class="col s6 offset-s1">
-					<div class="card white blue-grey-text darken-1">
-						<div class="card-content blue-grey-text darken-1">
-							<span class="card-title">Connexion</span>
-							<div class="row">
-								<form class="col s12" action="{{ path('login')}}" method="post">
-									<div class="row">
-										<div class="input-field col s6">
-											<label for="username">
-												Nom d'utilisateur</label>
-											<input type="text" id="username" name="_username" class="form-control" value={{last_username}}>
-										</div>
-									</div>
-									<div class="row">
-										<div class="input-field col s6">
-											<div class="form-group">
-												<label for="password">
-													Mot de passe
-												</label>
-												<input type="password" id="password" name="_password" class="form-control">
-											</div>
-										</div>
-									</div>
-									<a href={{path('registration')}}>Pas encore de compte ? Inscrivez-vous ici!</a>
-									<button type="submit" class="btn right">Se connecter</button>
-								</form>
-	
-							</div>
-						</div>
-					</div>
-				</div>
-			</div> #}
+
 
 <div class="container">
 	<div id="login-box">
 		<div class="logo">
-			<img src="https://cdn.instructables.com/F31/7E4H/K16P97W7/F317E4HK16P97W7.LARGE.jpg?auto=webp&frame=1&fit=bounds" class="img img-responsive img-circle center-block"
-				width="150" height="150"/>
+			{# <img src="https://cdn.instructables.com/F31/7E4H/K16P97W7/F317E4HK16P97W7.LARGE.jpg?auto=webp&frame=1&fit=bounds" class="img img-responsive img-circle center-block"
+				width="150" height="150"/> #}
 			<h1 class="logo-caption">
 				<span class="tweak">L</span>ogin</h1>
 		</div>
 		<!-- /.logo -->
 		<div class="controls">
-			<input type="text" name="username" placeholder="Username" class="form-control"/>
-			<input type="text" name="username" placeholder="Password" class="form-control"/>
-			<button type="button" class="btn btn-default btn-block btn-custom">Login</button>
 
+			<form class="col s12" action="{{ path('login')}}" method="post">
+				<label for="username">
+					Nom d'utilisateur</label>
+				<input type="text" id="username" name="_username" placeholder="Username" class="form-control" value={{last_username}}>
+
+				<label for="password">
+					Mot de passe
+				</label>
+				<input type="password" id="password" name="_password" placeholder="Password" class="form-control">
+
+				<br/>
+				<button type="submit" class="btn btn-default btn-block btn-custom">Connexion</button>
+			</form>
+
+			<br/> 
 			<a href={{path('registration')}}>Pas encore de compte ? Inscrivez-vous ici!</a>
-		</div>
+			</div>
 		<!-- /.controls -->
 	</div>
 	<!-- /#login-box -->
